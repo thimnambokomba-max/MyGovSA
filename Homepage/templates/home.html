@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+ 
+<div class="bg-gradient-to-r from-lightgreen-700 to-black-900 text-black py-16">
+<div class="max-w-7xl mx-auto px-6 text-center">
+<h1 class="text-5xl font-bold mb-4">Report & Track Service Delivery Issues</h1>
+<p class="text-xl max-w-2xl mx-auto">MyGov SA connects you with your local municipality to report and track community problems like water leaks, electricity faults, potholes, and more.</p>
+</div>
+</div>
+ 
+
+<div class="max-w-7xl mx-auto px-6 -mt-8 grid grid-cols-3 gap-6">
+<div class="bg-orange rounded-2xl shadow p-6">
+<i class="fa-solid fa-file-lines text-4xl text-light-green-600 mb-4"></i>
+<h3 class="font-semibold text-xl mb-2">Report Issues</h3>
+<p class="text-gray-600">Water leaks, electricity, potholes, and other service delivery issues in your community.</p>
+</div>
+<div class="bg-orange rounded-2xl shadow p-6">
+<i class="fa-solid fa-map-pin text-4xl text-blue-600 mb-4"></i>
+<h3 class="font-semibold text-xl mb-2">Track Progress</h3>
+<p class="text-gray-600">Get real-time updates on your reported issues. Know exactly where your service request is in the resolution process.</p>
+</div>
+<div class="bg-orange rounded-2xl shadow p-6">
+<i class="fa-solid fa-bell text-4xl text-orange-600 mb-4"></i>
+<h3 class="font-semibold text-xl mb-2">Get Notified</h3>
+<p class="text-gray-600">Receive notifications when your issue status changes – from pending to in progress to resolved.</p>
+</div>
+</div>
+ 
+
+<div class="max-w-7xl mx-auto px-6 mt-16">
+<div class="bg-orange rounded-3xl shadow p-8 flex justify-between items-center">
+<div class="text-center"><div class="text-4xl font-bold text-yellow-600">{{ total_reported }}</div><div class="text-sm text-gray-500">Issues Reported</div></div>
+<div class="text-center"><div class="text-4xl font-bold text-blue-600">{{ resolved }}</div><div class="text-sm text-gray-500">Issues Resolved</div></div>
+<div class="text-center"><div class="text-4xl font-bold text-dark-green-600">98%</div><div class="text-sm text-gray-500">User Satisfaction</div></div>
+<div class="text-center"><div class="text-4xl font-bold text-brown-600">24hrs</div><div class="text-sm text-gray-500">Avg Response Time</div></div>
+</div>
+</div>
+ 
+
+<div class="max-w-7xl mx-auto px-6 mt-12">
+<h2 class="text-2xl font-semibold mb-6">Recent Community Issues</h2>
+<div class="bg-orange rounded-3xl shadow overflow-hidden">
+<table class="w-full">
+<thead class="bg-gray-50">
+<tr>
+<th class="text-left p-6">Issue</th>
+<th class="text-left p-6">Location</th>
+<th class="text-right p-6">Status</th>
+</tr>
+</thead>
+<tbody>
+                {% for issue in recent_issues %}
+<tr class="border-t">
+<td class="p-6 font-medium">{{ issue.get_issue_type_display }}</td>
+<td class="p-6 text-gray-600">{{ issue.location }}</td>
+<td class="p-6 text-right">
+                        {% if issue.status == 'resolved' %}
+<span class="px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Resolved</span>
+                        {% elif issue.status == 'in_progress' %}
+<span class="px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">In Progress</span>
+                        {% else %}
+<span class="px-4 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">Pending</span>
+                        {% endif %}
+</td>
+</tr>
+                {% empty %}
+<tr><td colspan="3" class="p-6 text-center text-red-500">No issues yet — be the first to report one!</td></tr>
+                {% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+ 
+
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-3 gap-8">
+<div class="text-center">
+<div class="w-12 h-12 mx-auto bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-4">1</div>
+<h3 class="font-semibold">Step 1: Select Issue Type</h3>
+<p class="text-sm text-gray-600 mt-2">Choose from 10+ categories including water, electricity, roads, and waste management.</p>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 mx-auto bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-4">2</div>
+<h3 class="font-semibold">Step 2: Add Location</h3>
+<p class="text-sm text-gray-600 mt-2">Specify where the problem is happening with a detailed address or description.</p>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 mx-auto bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-4">3</div>
+<h3 class="font-semibold">Step 3: Submit & Track</h3>
+<p class="text-sm text-gray-600 mt-2">Get a unique reference number and track your issue until resolution.</p>
+</div>
+</div>
+ 
+{% endblock %}

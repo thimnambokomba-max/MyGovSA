@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-12 bg-white rounded-3xl shadow p-8">
+<h1 class="text-3xl font-bold text-center mb-8">Report an Issue</h1>
+<div class="flex justify-between mb-8">
+<div class="flex-1 text-center">
+<div class="w-8 h-8 bg-black-600 text-white rounded-full flex items-center justify-center mx-auto">1</div>
+<p class="text-xs mt-1 font-medium">Issue Type</p>
+</div>
+<div class="flex-1 border-t border-gray-300 mt-4"></div>
+<div class="flex-1 text-center">
+<div class="w-8 h-8 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center mx-auto">2</div>
+<p class="text-xs mt-1">Location</p>
+</div>
+<div class="flex-1 border-t border-gray-300 mt-4"></div>
+<div class="flex-1 text-center">
+<div class="w-8 h-8 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center mx-auto">3</div>
+<p class="text-xs mt-1">Submit</p>
+</div>
+</div>
+ 
+    <form method="post">
+        {% csrf_token %}
+<label class="block text-sm font-medium mb-2">Select Issue Type *</label>
+<select name="issue_type" class="w-full border rounded-2xl px-4 py-4 text-lg" required>
+<option value="">-- Select an issue type --</option>
+            {% for value, label in issue_types %}
+<option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+</select>
+<button type="submit" class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-semibold text-lg">Next Step →</button>
+</form>
+</div>
+{% endblock %}
